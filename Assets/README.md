@@ -1,8 +1,5 @@
-﻿# Gradient Sprite Shaders
-version: 1.0.0
-
-# What are these?
-These are sprite shaders that display gradients with more than two colors. 
+﻿# What are these?
+These are sprite shaders that create gradients with more than two colors as stop points. 
 
 # How to use:
 
@@ -44,7 +41,4 @@ mat.SetInt("_ColorCount", colors.Length);
 mat.SetInt("_AlphaCount", alphas.Length);
 ```
 
-Adjusting anchors result in a subtle or drastic transition
-
-# LICENSE
-These files are licensed under the MIT License by Otavio Costa dos Santos
+Adjusting anchors to effect a subtle or drastic transition

@@ -73,12 +73,24 @@
             fixed _CurrentAlpha;
             fixed _NextAlpha;
             int _AlphaCount = 0;
+            float _EnableExternalAlpha;
 
+            fixed4 SampleSpriteTexture (float2 uv)
+            {
+                fixed4 color = tex2D (_MainTex, uv);
+
+#if ETC1_EXTERNAL_ALPHA
+				// get the color from an external texture (usecase: Alpha support for ETC1 on android)
+				fixed4 alpha = tex2D (_AlphaTex, uv);
+				color.a = lerp (color.a, alpha.r, _EnableExternalAlpha);
+#endif //ETC1_EXTERNAL_ALPHA
+
+return color;
+            }
 
             fixed4 frag (v2f i) : SV_Target
             {
-                
-                float pos = 1 - length(i.texcoord - float2(0.5, 0.5)) * 1.41421356237; // 1.141... = sqrt(2)
+                float pos = length(i.texcoord - float2(0.5, 0.5)) * 1.41421356237; // 1.141... = sqrt(2)
 
                 fixed colorAnchor;
                 fixed nextColorAnchor;
@@ -96,7 +108,7 @@
                 fixed alphaAnchor;
                 fixed nextAlphaAnchor;
 
-                for (int j = 0; j < _AlphaCount; j++) {
+                for (j = 0; j < _AlphaCount; j++) {
                     alphaAnchor = _AlphaAnchors[j];
                     nextAlphaAnchor = _AlphaAnchors[j + 1];
                     if (pos >= alphaAnchor && pos < nextAlphaAnchor) {

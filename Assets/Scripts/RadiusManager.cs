@@ -12,11 +12,10 @@ public class RadiusManager : MonoBehaviour
     Color[] colors = {
             new Color(0.8867924f, 0.8403348f, 0.4810431f),
             new Color(0.4823529f, 0.8862745f, 0.4878726f),
-            new Color(0.3862745f, 0.4823529f, 0.919865f),
-            new Color(0.919865f, 0.23529f, 0.223211f),
+            new Color(0.8862745f, 0.4823529f, 0.519865f),
         };
     float[] alphas = { 0, 0.0f, 1f, 0f, 0 };
-    float[] colorAnchors = { 0, 0.5f, 0.9f, 1 };
+    float[] colorAnchors = { 0, 0.5f, 1 };
 
     void Start()
     {
@@ -33,7 +32,7 @@ public class RadiusManager : MonoBehaviour
     void Update()
     {
         float range = slider.value;
-        float[] alphaAnchors = { 0, range - Random.Range(0.53f, 0.585f), range, range + 0.1f, 1 };
+        float[] alphaAnchors = { 0, range - 0.1f, range, range + 0.1f, 1 };
 
         mat.SetFloatArray("_AlphaAnchors", alphaAnchors);
     }
